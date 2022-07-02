@@ -1,0 +1,5 @@
+.chatlist {
+  position: relative;
+  height: calc(100% - 110px); /* 60 + 50 = 110 */
+  overflow-y: auto;
+}

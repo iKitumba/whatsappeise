@@ -1,0 +1,124 @@
+.register-container {
+  width: 80%;
+  min-height: 84vh;
+  display: flex;
+}
+
+.register-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.register-info h1 {
+  font-size: 2.625rem;
+  font-weight: bold;
+  color: #009688;
+}
+
+.register-form {
+  flex: 1;
+  background: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.03), -2px -2px 2px rgba(0, 0, 0, 0.03);
+}
+
+.upload-area {
+  min-width: 8.125rem;
+  height: 8.125rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #009688;
+  cursor: pointer;
+}
+
+.upload-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.upload-info p {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #009688;
+}
+
+.upload-area input {
+  width: 0;
+  height: 0;
+}
+
+.input-wrapper {
+  width: 80%;
+  background: #d9dbd5;
+  height: 3.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border-radius: 5px;
+  padding: 0 1rem;
+}
+
+.input-wrapper input {
+  width: 90%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.input-wrapper input::placeholder {
+  font-size: 1.25rem;
+  color: #009688;
+  font-weight: 600;
+}
+
+.already-have-account {
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.already-have-account p {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #009688;
+}
+
+.register-button {
+  width: 80%;
+  height: 3.125rem;
+  border: none;
+  border-radius: 5px;
+  background: #009688;
+  cursor: pointer;
+  color: #edf6f5;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.has-preview {
+  border: none;
+  background-size: cover;
+}
+
+.has-preview .upload-info {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .register-info {
+    display: none;
+  }
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="279" height="44" viewBox="0 0 279 44">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_12" data-name="Rectangle 12" width="44" height="44" transform="translate(278.639 109)" fill="#009688" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="whatsappeise_logo" data-name="whatsappeise logo" transform="translate(-153 -227)">
+    <g id="Mask_Group_6" data-name="Mask Group 6" transform="translate(-125.639 118)" clip-path="url(#clip-path)">
+      <g id="logo-whatsapp" transform="translate(279 109)">
+        <path id="Path_12" data-name="Path 12" d="M50.71,19.77a21.688,21.688,0,0,0-34.2,26.1l-3.083,11.2L24.947,54.06a21.783,21.783,0,0,0,10.384,2.63h.009A21.709,21.709,0,0,0,57.068,35.066a21.447,21.447,0,0,0-6.358-15.3ZM35.34,53.04h-.008a18.094,18.094,0,0,1-9.191-2.505l-.659-.39L18.646,51.93,20.47,45.3l-.43-.682a18.075,18.075,0,1,1,15.3,8.425ZM45.245,39.58c-.543-.271-3.214-1.578-3.709-1.758s-.86-.271-1.222.271-1.4,1.753-1.719,2.119-.633.405-1.176.134a14.851,14.851,0,0,1-4.367-2.682,16.293,16.293,0,0,1-3.02-3.742c-.317-.541-.034-.834.238-1.1.244-.243.543-.631.814-.947a3.656,3.656,0,0,0,.543-.9.992.992,0,0,0-.045-.946c-.135-.27-1.222-2.93-1.673-4.012-.441-1.054-.888-.911-1.222-.927-.317-.016-.682-.019-1.041-.019a2,2,0,0,0-1.447.676,6.055,6.055,0,0,0-1.9,4.508c0,2.657,1.948,5.229,2.217,5.589S30.344,41.656,35.79,44a31.476,31.476,0,0,0,3.1,1.138,7.474,7.474,0,0,0,3.419.214c1.043-.155,3.214-1.307,3.665-2.57a4.51,4.51,0,0,0,.317-2.569C46.151,39.986,45.789,39.849,45.245,39.58Z" transform="translate(-13.429 -13.428)" fill="#009688" fill-rule="evenodd"/>
+      </g>
+    </g>
+    <text id="Whatsappeise" transform="translate(214 260)" fill="#009688" font-size="30" font-family="OCRAExtended, OCR A"><tspan x="0" y="0">Whatsappeise</tspan></text>
+  </g>
+</svg>

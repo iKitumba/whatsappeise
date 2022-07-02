@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_6" data-name="Rectangle 6" width="24" height="24" transform="translate(-397 604)" fill="#51585c"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_6" data-name="Mask Group 6" transform="translate(397 -604)" clip-path="url(#clip-path)">
+    <g id="happy-outline" transform="translate(-398.714 602.286)">
+      <circle id="Ellipse_7" data-name="Ellipse 7" cx="1.286" cy="1.286" r="1.286" transform="translate(8.571 11.143)" fill="#51585c"/>
+      <path id="Path_8" data-name="Path 8" d="M13.717,20.571A5.325,5.325,0,0,1,8.59,16.831a.429.429,0,0,1,.419-.545h9.412a.429.429,0,0,1,.419.545A5.314,5.314,0,0,1,13.717,20.571Z" fill="#51585c"/>
+      <circle id="Ellipse_8" data-name="Ellipse 8" cx="1.286" cy="1.286" r="1.286" transform="translate(16.286 11.143)" fill="#51585c"/>
+      <circle id="Ellipse_9" data-name="Ellipse 9" cx="11.143" cy="11.143" r="11.143" transform="translate(2.571 2.571)" fill="none" stroke="#51585c" stroke-miterlimit="10" stroke-width="1.714"/>
+    </g>
+  </g>
+</svg>

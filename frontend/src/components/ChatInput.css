@@ -1,0 +1,29 @@
+.chatbox_input {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  background: #f0f0f0;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbox_input img {
+  cursor: pointer;
+}
+
+.chatbox_input img:nth-child(1) {
+  margin-right: 15px;
+}
+
+.chatbox_input input {
+  position: relative;
+  width: 90%;
+  margin: 0 20px;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  border-radius: 30px;
+  font-size: 1em;
+}
