@@ -1,2 +1,4 @@
 /backend/node_modules
 /frontend/node_modules
+/backend/tmp/uploads/avatars/**:
+!/backend/tmp/uploads/avatars/.gitkeep
