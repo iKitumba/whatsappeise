@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import LeftSide from "../../components/LeftSide";
 import RightSide from "../../components/RightSide";
+import { PORT } from "../../utils/constants";
 import "./Main.css";
 
 export default function Main() {
@@ -19,7 +20,7 @@ export default function Main() {
 
   useEffect(() => {
     if (token) {
-      const socket = io("http://localhost:5000", {
+      const socket = io(`http://localhost:${PORT}`, {
         query: { user: token.user._id },
       });
 

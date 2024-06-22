@@ -1,3 +1,7 @@
+/**
+ * @ts-check
+ */
+
 import cors from "cors";
 import "dotenv/config";
 import express from "express";
@@ -6,9 +10,17 @@ import http from "node:http";
 import { resolve } from "node:path";
 import { Server } from "socket.io";
 import routes from "./routes.js";
+const PORT = process.env.PORT || 3333;
 
 const app = express();
 const server = http.Server(app);
+
+app.use((req, res, next) => {
+  cors({ origin: "*" });
+
+  next();
+});
+
 const io = new Server(server, {
   cors: "*",
 });
@@ -42,7 +54,7 @@ mongoose
     app.use(express.json());
     app.use(routes);
 
-    server.listen(5000, () => console.log("App running on port 5000"));
+    server.listen(PORT, () => console.log("App running on port 5000"));
   })
   .catch((err) => {
     console.log(`Error connecting to DB: ${new Error(err).message}`);
