@@ -1,30 +1,62 @@
 "use client";
+import { getUserData } from "@/utils/getUserData";
 import { useRouter } from "next/navigation";
-import { createContext, useEffect, useRef, useState } from "react";
+import React from "react";
 import api from "../services/api";
 
-const AuthContext = createContext();
+export interface User {
+  _id: string;
+  username: string;
+  bio: string;
+  avatar: string;
+  contacts: string[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
 
-const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+export interface UserData {
+  user: User;
+  token: string;
+}
+
+type AuthContextProps = {
+  user: UserData | null;
+  setUser: React.Dispatch<React.SetStateAction<UserData | null>>;
+  handleLogin: ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => Promise<void>;
+  handleLogOut: () => void;
+};
+
+const AuthContext = React.createContext<AuthContextProps>(
+  {} as AuthContextProps
+);
+
+const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = React.useState<UserData | null>(null);
   const router = useRouter();
 
-  const usernameRef = useRef();
-  const passwordRef = useRef();
-
-  useEffect(() => {
-    const userData = localStorage.getItem("user_data")
-      ? JSON.parse(localStorage.getItem("user_data"))
-      : {};
+  React.useEffect(() => {
+    const userData = getUserData();
 
     setUser(userData);
   }, []);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => {
     const userData = {
-      [usernameRef.current.name]: usernameRef.current.value,
-      [passwordRef.current.name]: passwordRef.current.value,
+      username,
+      password,
     };
     try {
       const response = await api.post("users/authenticate", userData);
@@ -35,15 +67,13 @@ const AuthContextProvider = ({ children }) => {
 
       router.push("/");
     } catch (error) {
-      alert(error.response.data.message);
+      console.log(error);
     }
   };
 
-  const handleLogOut = (e) => {
-    e.preventDefault();
-
+  const handleLogOut = () => {
     localStorage.clear();
-    setUser({});
+    setUser(null);
     window.location.reload();
   };
 
@@ -54,8 +84,6 @@ const AuthContextProvider = ({ children }) => {
         setUser,
         handleLogin,
         handleLogOut,
-        usernameRef,
-        passwordRef,
       }}
     >
       {children}

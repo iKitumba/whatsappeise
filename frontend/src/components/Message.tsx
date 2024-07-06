@@ -1,6 +1,12 @@
 import "./Message.css";
 
-const Message = ({ content, isMy, time }) => {
+type MessageProps = {
+  content: string;
+  isMy: boolean;
+  time: Date;
+};
+
+const Message = ({ content, isMy, time }: MessageProps) => {
   return (
     <div className={isMy ? "message my_message" : "message frnd_message"}>
       <p>

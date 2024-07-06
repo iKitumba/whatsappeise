@@ -1,15 +1,16 @@
 "use client";
-import { useMemo, useState } from "react";
+import React from "react";
 
 import api from "../../services/api";
 
+import { getUserData } from "@/utils/getUserData";
 import { Lock, Smile, Upload, User2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function Register() {
-  const [avatar, setAvatar] = useState(null);
-  const [registerForm, setRegisterForm] = useState({
+  const [avatar, setAvatar] = React.useState<File | null>(null);
+  const [registerForm, setRegisterForm] = React.useState({
     username: "",
     bio: "",
     password: "",
@@ -18,15 +19,13 @@ export default function Register() {
 
   const router = useRouter();
 
-  const token = !!localStorage.getItem("user_data")
-    ? JSON.parse(localStorage.getItem("user_data"))
-    : false;
+  const userData = getUserData();
 
-  if (token) {
+  if (userData) {
     router.push("/");
   }
 
-  const preview = useMemo(() => {
+  const preview = React.useMemo(() => {
     return avatar ? URL.createObjectURL(avatar) : null;
   }, [avatar]);
 
@@ -38,7 +37,7 @@ export default function Register() {
     event.preventDefault();
     const { username, bio, password, repeat } = registerForm;
     if (password !== repeat) {
-      alert("As senhas não coecidem");
+      alert("As senhas não são iguais");
     } else if (username && bio && password && avatar) {
       const formData = new FormData();
 
@@ -56,11 +55,11 @@ export default function Register() {
 
             router.push("/");
           } else {
-            alert(`Já existe um usário com este nome (${username})`);
+            alert(`Já existe um usuário com este nome (${username})`);
           }
         })
         .catch((error) => {
-          alert(`Já existe um usário com este nome (${username})`);
+          alert(`Já existe um usuário com este nome (${username})`);
           console.log(error);
         });
     } else {

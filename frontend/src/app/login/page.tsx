@@ -1,6 +1,7 @@
 "use client";
-import { useContext } from "react";
+import React from "react";
 
+import { getUserData } from "@/utils/getUserData";
 import { LockIcon, User2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,15 +9,15 @@ import { useRouter } from "next/navigation";
 import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Login() {
-  const authContext = useContext(AuthContext);
-  const { handleLogin, usernameRef, passwordRef } = authContext;
+  const authContext = React.useContext(AuthContext);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const { handleLogin } = authContext;
 
   const router = useRouter();
-  const token = !!localStorage.getItem("user_data")
-    ? JSON.parse(localStorage.getItem("user_data"))
-    : false;
+  const userData = getUserData();
 
-  if (token) {
+  if (userData) {
     router.push("/");
   }
 
@@ -31,15 +32,22 @@ export default function Login() {
           nossa rede social
         </h1>
       </div>
-      <form className="login-form max-w-[430px] mx-auto" onSubmit={handleLogin}>
+      <form
+        className="login-form max-w-[430px] mx-auto"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleLogin({ password, username });
+        }}
+      >
         <label className="login-input-wrapper">
           <User2 size={24} />
           <input
             type="text"
             name="username"
             placeholder="username"
+            value={username}
             required
-            ref={usernameRef}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </label>
 
@@ -49,7 +57,8 @@ export default function Login() {
             type="password"
             name="password"
             placeholder="senha"
-            ref={passwordRef}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>

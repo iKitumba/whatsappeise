@@ -1,5 +1,15 @@
 import "./Contact.css";
 
+type ContactProps = {
+  active?: boolean;
+  avatar: string;
+  username: string;
+  time: Date;
+  bio: string;
+  unread?: boolean;
+  numRecived?: number;
+};
+
 const Contact = ({
   active,
   avatar,
@@ -7,8 +17,8 @@ const Contact = ({
   time,
   bio,
   unread,
-  numRecived,
-}) => (
+  numRecived = 0,
+}: ContactProps) => (
   <div className={active ? `block active ${unread && "unread"}` : "block"}>
     <div className="imgbx">
       <img src={avatar} className="cover" />
@@ -16,7 +26,7 @@ const Contact = ({
     <div className="details">
       <div className="listHead">
         <h4>{username}</h4>
-        <p className="time">{time}</p>
+        <p className="time">{time.toLocaleDateString()}</p>
       </div>
       <div className="message_p">
         <p>{bio}</p>

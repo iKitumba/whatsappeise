@@ -1,17 +1,17 @@
 "use client";
+import { User } from "@/contexts/AuthContext";
+import { getUserData } from "@/utils/getUserData";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 
 const AddFriend = () => {
-  const token = !!localStorage.getItem("user_data")
-    ? JSON.parse(localStorage.getItem("user_data"))
-    : false;
+  const userData = getUserData();
   const router = useRouter();
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
 
-  if (!token) {
+  if (!userData) {
     router.push("/login");
   }
 
@@ -19,13 +19,13 @@ const AddFriend = () => {
     async function loadUsers() {
       const response = await api.get("/users/list", {
         headers: {
-          Authorization: `Bearer ${token.token}`,
+          Authorization: `Bearer ${userData?.token}`,
         },
       });
 
       setUsers(response.data);
     }
-    if (token) {
+    if (userData) {
       loadUsers();
     }
   }, []);
@@ -33,7 +33,7 @@ const AddFriend = () => {
   async function handleAddContact(id: string) {
     await api.patch(`/contacts/${id}`, null, {
       headers: {
-        Authorization: `Bearer ${token.token}`,
+        Authorization: `Bearer ${userData?.token}`,
       },
     });
 

@@ -1,23 +1,30 @@
+import { Message as MessageProps } from "@/types/Message";
 import { LogOut, UserPlus } from "lucide-react";
 import Link from "next/link";
-import { useContext, useEffect, useRef } from "react";
+import React from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import api from "../services/api";
 import ChatInput from "./ChatInput";
 import Message from "./Message";
 import "./RightSide.css";
 
-const RightSide = ({ userInfo, messages, setMessages, contactId }) => {
-  const authContext = useContext(AuthContext);
-  const { handleLogOut, user } = authContext;
-  const scrollRef = useRef(null);
+type RightSideProps = {
+  messages: MessageProps[];
+  setMessages: React.Dispatch<React.SetStateAction<MessageProps[]>>;
+  contactId: string | null;
+};
 
-  useEffect(() => {
+const RightSide = ({ messages, setMessages, contactId }: RightSideProps) => {
+  const authContext = React.useContext(AuthContext);
+  const { handleLogOut, user } = authContext;
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
     async function loadMessages() {
       if (contactId) {
         const { data } = await api.get(`/message/${contactId}`, {
           headers: {
-            Authorization: `Bearer ${userInfo.token}`,
+            Authorization: `Bearer ${user?.token}`,
           },
         });
         console.log(data);
@@ -28,7 +35,7 @@ const RightSide = ({ userInfo, messages, setMessages, contactId }) => {
     loadMessages();
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -50,8 +57,8 @@ const RightSide = ({ userInfo, messages, setMessages, contactId }) => {
               <UserPlus size={24} />
             </Link>
           </li>
-          <li onClick={handleLogOut}>
-            <LogOut size={24} title="Sair" />
+          <li onClick={handleLogOut} title="Sair">
+            <LogOut size={24} />
           </li>
         </ul>
       </div>
@@ -64,7 +71,7 @@ const RightSide = ({ userInfo, messages, setMessages, contactId }) => {
             <Message
               key={m._id}
               content={m.text}
-              isMy={m.sender_id === user.user._id}
+              isMy={m.sender_id === user?.user._id}
               time={m.createdAt}
             />
           ))}
@@ -72,10 +79,10 @@ const RightSide = ({ userInfo, messages, setMessages, contactId }) => {
 
       {/* ChatInput */}
 
-      {contactId && (
+      {contactId && user && (
         <ChatInput
           friendID={contactId}
-          token={userInfo.token}
+          token={user.token}
           setMessages={setMessages}
           messages={messages}
         />

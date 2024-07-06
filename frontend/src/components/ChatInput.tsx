@@ -1,11 +1,24 @@
+import { Message } from "@/types/Message";
 import { Link, Mic, Mic2 } from "lucide-react";
 import { useState } from "react";
 import api from "../services/api";
 import "./ChatInput.css";
 
-const ChatInput = ({ friendID, token, setMessages, messages }) => {
+type ChatInputProps = {
+  friendID: string;
+  token: string;
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+  messages: Message[];
+};
+
+const ChatInput = ({
+  friendID,
+  token,
+  setMessages,
+  messages,
+}: ChatInputProps) => {
   const [text, setText] = useState("");
-  const handleSubmitMessage = async (e) => {
+  const handleSubmitMessage = async (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       const { data } = await api.post(
         `/message/${friendID}`,

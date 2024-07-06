@@ -1,3 +1,6 @@
+import { Contact as ContactProps } from "@/types/Contact";
+import { Message } from "@/types/Message";
+import { getUserData } from "@/utils/getUserData";
 import { Barcode, EllipsisVertical, MessageCircle, Search } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -6,9 +9,16 @@ import api from "../services/api";
 import Contact from "./Contact";
 import "./LeftSide.css";
 
-const LeftSide = ({ userInfo, setMessages }) => {
-  const [contacts, setContacts] = useState([]);
+type LeftSideProps = {
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+};
+
+const LeftSide = ({ setMessages }: LeftSideProps) => {
+  const [contacts, setContacts] = useState<ContactProps[]>(
+    [] as ContactProps[]
+  );
   const { contact_id } = useParams();
+  const userInfo = getUserData();
 
   useEffect(() => {
     async function loadContacts() {
@@ -26,15 +36,17 @@ const LeftSide = ({ userInfo, setMessages }) => {
     loadContacts();
   }, []);
 
-  const handleContactClick = async (id) => {
-    const { data } = await api.get(`/message/${id}`, {
+  const handleContactClick = async (id: string) => {
+    const { data } = await api.get<Message[]>(`/message/${id}`, {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo?.token}`,
       },
     });
 
     setMessages(data);
   };
+
+  console.log({ contacts });
 
   return (
     <div className="leftSide">
@@ -47,10 +59,10 @@ const LeftSide = ({ userInfo, setMessages }) => {
         </div>
         <ul className="flex gap-2">
           <li>
-            <Barcode size={24} alt="" />
+            <Barcode size={24} />
           </li>
           <li>
-            <MessageCircle size={24} alt="" />
+            <MessageCircle size={24} />
           </li>
           <li>
             <EllipsisVertical size={24} />
@@ -83,10 +95,8 @@ const LeftSide = ({ userInfo, setMessages }) => {
               username={c.username}
               avatar={c.avatar}
               bio={c.bio}
-              // time={c.time}
-              // unread={c.unread}
+              time={new Date(c.createdAt)}
               active={contact_id === c._id}
-              // numRecived={c.numRecived}
             />
           </Link>
         ))}
