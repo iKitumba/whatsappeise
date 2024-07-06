@@ -1,15 +1,11 @@
+"use client";
 import { useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
 import api from "../../services/api";
 
-import lockIcon from "../../assets/lock.svg";
-import smileIcon from "../../assets/smile.svg";
-import uploadIcon from "../../assets/upload.svg";
-import userIcon from "../../assets/username.svg";
-import "./Register.css";
-
-import whatsappeise from "../../assets/logo.svg";
+import { Lock, Smile, Upload, User2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [avatar, setAvatar] = useState(null);
@@ -20,25 +16,25 @@ export default function Register() {
     repeat: "",
   });
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const token = !!localStorage.getItem("user_data")
     ? JSON.parse(localStorage.getItem("user_data"))
     : false;
 
   if (token) {
-    navigate("/", { replace: true });
+    router.push("/");
   }
 
   const preview = useMemo(() => {
     return avatar ? URL.createObjectURL(avatar) : null;
   }, [avatar]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const { username, bio, password, repeat } = registerForm;
     if (password !== repeat) {
@@ -58,7 +54,7 @@ export default function Register() {
             localStorage.clear();
             localStorage.setItem("user_data", JSON.stringify(data));
 
-            navigate("/", { replace: true });
+            router.push("/");
           } else {
             alert(`Já existe um usário com este nome (${username})`);
           }
@@ -76,10 +72,10 @@ export default function Register() {
     <div className="register-container">
       <div className="register-info">
         <div className="logo-container">
-          <img src={whatsappeise} alt="Logo" />
+          <img src="/logo.svg" alt="Logo" />
         </div>
         <h1>
-          Registre se na nossa <br />
+          Registre-se na nossa <br />
           rede social
         </h1>
       </div>
@@ -89,19 +85,21 @@ export default function Register() {
           style={{ backgroundImage: `url(${preview})` }}
         >
           <div className="upload-info">
-            <img src={uploadIcon} alt="Upload" />
+            <Upload size={24} />
             <p>avatar</p>
           </div>
           <input
             type="file"
             name="avatar"
             accept="image/*"
-            onChange={(e) => setAvatar(e.target.files[0])}
+            onChange={(e) =>
+              setAvatar(e.target.files ? e.target.files[0] : null)
+            }
           />
         </label>
 
         <label className="input-wrapper">
-          <img src={userIcon} alt="Username" />
+          <User2 size={24} />
           <input
             type="text"
             name="username"
@@ -112,7 +110,7 @@ export default function Register() {
         </label>
 
         <label className="input-wrapper">
-          <img src={smileIcon} alt="Bio" />
+          <Smile size={24} />
           <input
             type="text"
             name="bio"
@@ -123,7 +121,7 @@ export default function Register() {
         </label>
 
         <label className="input-wrapper">
-          <img src={lockIcon} alt="Senha" />
+          <Lock size={24} />
           <input
             type="password"
             name="password"
@@ -134,7 +132,7 @@ export default function Register() {
         </label>
 
         <label className="input-wrapper">
-          <img src={lockIcon} alt="Repita senha" />
+          <Lock size={24} />
           <input
             type="password"
             name="repeat"
@@ -145,7 +143,7 @@ export default function Register() {
         </label>
 
         <div className="already-have-account">
-          <Link to="/login" style={{ textDecoration: "none" }}>
+          <Link href="/login" style={{ textDecoration: "none" }}>
             <p>Já tenho uma conta</p>
           </Link>
         </div>

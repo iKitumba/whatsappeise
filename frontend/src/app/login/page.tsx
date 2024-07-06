@@ -1,42 +1,39 @@
+"use client";
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
-import lockIcon from "../../assets/lock.svg";
-import userIcon from "../../assets/username.svg";
-
-import whatsappeise from "../../assets/logo.svg";
-
-import "./Login.css";
-
+import { LockIcon, User2 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Login() {
   const authContext = useContext(AuthContext);
   const { handleLogin, usernameRef, passwordRef } = authContext;
 
-  const navigate = useNavigate();
+  const router = useRouter();
   const token = !!localStorage.getItem("user_data")
     ? JSON.parse(localStorage.getItem("user_data"))
     : false;
 
   if (token) {
-    navigate("/", { replace: true });
+    router.push("/");
   }
 
   return (
     <div className="login-container">
       <div className="login-info">
-        <div className="logo-container">
-          <img src={whatsappeise} alt="Logo" />
+        <div className="">
+          <Image width={240} height={60} src={"/logo.svg"} alt="Logo" />
         </div>
-        <h1>
+        <h1 className="text-zinc-800">
           Faça seu login na <br />
           nossa rede social
         </h1>
       </div>
-      <form className="login-form" onSubmit={handleLogin}>
+      <form className="login-form max-w-[430px] mx-auto" onSubmit={handleLogin}>
         <label className="login-input-wrapper">
-          <img src={userIcon} alt="User" />
+          <User2 size={24} />
           <input
             type="text"
             name="username"
@@ -47,7 +44,7 @@ export default function Login() {
         </label>
 
         <label className="login-input-wrapper">
-          <img src={lockIcon} alt="Senha" />
+          <LockIcon size={24} />
           <input
             type="password"
             name="password"
@@ -58,7 +55,7 @@ export default function Login() {
         </label>
 
         <div className="dont-have-account">
-          <Link to="/register" style={{ textDecoration: "none" }}>
+          <Link href="/register" style={{ textDecoration: "none" }}>
             <p>Não tenho uma conta</p>
           </Link>
         </div>

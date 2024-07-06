@@ -1,18 +1,18 @@
+"use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import whatsappeise from "../../assets/logo.svg";
 import api from "../../services/api";
-import "./AddFriend.css";
 
 const AddFriend = () => {
   const token = !!localStorage.getItem("user_data")
     ? JSON.parse(localStorage.getItem("user_data"))
     : false;
-  const navigate = useNavigate();
+  const router = useRouter();
   const [users, setUsers] = useState([]);
 
   if (!token) {
-    navigate("/login", { replace: true });
+    router.push("/login");
   }
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const AddFriend = () => {
     }
   }, []);
 
-  async function handleAddContact(id) {
+  async function handleAddContact(id: string) {
     await api.patch(`/contacts/${id}`, null, {
       headers: {
         Authorization: `Bearer ${token.token}`,
@@ -43,8 +43,8 @@ const AddFriend = () => {
   return (
     <div className="addperson-container">
       <figure>
-        <Link to="/">
-          <img src={whatsappeise} alt="Whatsappeise" />
+        <Link href="/">
+          <img src="/logo.svg" alt="Whatsappeise" />
         </Link>
       </figure>
       <ul>

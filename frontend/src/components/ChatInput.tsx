@@ -1,7 +1,5 @@
+import { Link, Mic, Mic2 } from "lucide-react";
 import { useState } from "react";
-import attach_outline from "../assets/attach_outline.svg";
-import happy_outline from "../assets/happy_outline.svg";
-import mic from "../assets/mic.svg";
 import api from "../services/api";
 import "./ChatInput.css";
 
@@ -24,8 +22,8 @@ const ChatInput = ({ friendID, token, setMessages, messages }) => {
   };
   return (
     <div className="chatbox_input">
-      <img src={happy_outline} alt="" />
-      <img src={attach_outline} alt="" />
+      <Mic size={24} />
+      <Link size={24} />
       <input
         type="text"
         placeholder="Type a message"
@@ -33,7 +31,7 @@ const ChatInput = ({ friendID, token, setMessages, messages }) => {
         onChange={(e) => setText(e.target.value)}
         onKeyUp={handleSubmitMessage}
       />
-      <img src={mic} alt="" />
+      <Mic2 size={24} />
     </div>
   );
 };

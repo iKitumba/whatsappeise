@@ -1,17 +1,13 @@
-import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import chatbox from "../assets/chatbox.svg";
-import ellipsis_vertical from "../assets/ellipsis_vertical.svg";
-import scan_circle_outline from "../assets/scan_circle_outline.svg";
-import search_outline from "../assets/search_outline.svg";
-import { AuthContext } from "../contexts/AuthContext";
+import { Barcode, EllipsisVertical, MessageCircle, Search } from "lucide-react";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import api from "../services/api";
 import Contact from "./Contact";
 import "./LeftSide.css";
 
 const LeftSide = ({ userInfo, setMessages }) => {
   const [contacts, setContacts] = useState([]);
-  const authContext = useContext(AuthContext);
   const { contact_id } = useParams();
 
   useEffect(() => {
@@ -43,26 +39,33 @@ const LeftSide = ({ userInfo, setMessages }) => {
   return (
     <div className="leftSide">
       <div className="header">
-        <div className="userImg">
-          <img src={userInfo?.user?.avatar} className="cover" />
+        <div className="relative w-10 h-10 overflow-hidden rounded-full">
+          <img
+            src={userInfo?.user?.avatar}
+            className="absolute top-0 left-0 w-full h-full object-cover cursor-pointer"
+          />
         </div>
-        <ul className="nav_icons">
+        <ul className="flex gap-2">
           <li>
-            <img src={scan_circle_outline} alt="" />
+            <Barcode size={24} alt="" />
           </li>
           <li>
-            <img src={chatbox} alt="" />
+            <MessageCircle size={24} alt="" />
           </li>
           <li>
-            <img src={ellipsis_vertical} alt="" />
+            <EllipsisVertical size={24} />
           </li>
         </ul>
       </div>
       {/* Search */}
-      <div className="search_chat">
-        <div>
-          <input type="text" placeholder="Search or start new chat" />
-          <img src={search_outline} alt="" />
+      <div className="search_chat relative w-full h-12 bg-gray-100 flex items-center justify-center px-4">
+        <div className="flex flex-1 items-center gap-2 px-3 justify-between  bg-white rounded-full">
+          <Search size={24} />
+          <input
+            className="flex flex-1 w-full outline-none border-none h-9 text-sm"
+            type="text"
+            placeholder="Search or start new chat"
+          />
         </div>
       </div>
 
@@ -72,7 +75,7 @@ const LeftSide = ({ userInfo, setMessages }) => {
         {contacts?.map((c) => (
           <Link
             style={{ textDecoration: "none" }}
-            to={`/chats/${c._id}`}
+            href={`/chats/${c._id}`}
             key={c._id}
             onClick={() => handleContactClick(c._id)}
           >

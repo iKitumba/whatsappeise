@@ -1,12 +1,13 @@
+"use client";
+import { useRouter } from "next/navigation";
 import { createContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const usernameRef = useRef();
   const passwordRef = useRef();
@@ -32,7 +33,7 @@ const AuthContextProvider = ({ children }) => {
       localStorage.setItem("user_data", JSON.stringify(data));
       setUser(data);
 
-      navigate("/", { replace: true });
+      router.push("/");
     } catch (error) {
       alert(error.response.data.message);
     }

@@ -1,7 +1,6 @@
+import { LogOut, UserPlus } from "lucide-react";
+import Link from "next/link";
 import { useContext, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import logout from "../assets/logout.svg";
-import personAdd from "../assets/person_add_alt.svg";
 import { AuthContext } from "../contexts/AuthContext";
 import api from "../services/api";
 import ChatInput from "./ChatInput";
@@ -47,12 +46,12 @@ const RightSide = ({ userInfo, messages, setMessages, contactId }) => {
         </div>
         <ul className="nav_icons">
           <li>
-            <Link to="/addfriend">
-              <img src={personAdd} alt="" />
+            <Link href="/addfriend">
+              <UserPlus size={24} />
             </Link>
           </li>
           <li onClick={handleLogOut}>
-            <img src={logout} alt="" title="Sair" />
+            <LogOut size={24} title="Sair" />
           </li>
         </ul>
       </div>

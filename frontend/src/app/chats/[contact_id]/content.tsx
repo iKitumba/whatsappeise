@@ -1,21 +1,25 @@
+"use client";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
-import LeftSide from "../../components/LeftSide";
-import RightSide from "../../components/RightSide";
-import { PORT } from "../../utils/constants";
-import "./Main.css";
+import LeftSide from "../../../components/LeftSide";
+import RightSide from "../../../components/RightSide";
+import { PORT } from "../../../utils/constants";
 
-export default function Main() {
-  const { contact_id } = useParams();
-  const [messages, setMessages] = useState([]);
-  const navigate = useNavigate();
+type ContentProps = {
+  contact_id: string;
+};
+
+export function Content(props: ContentProps) {
+  const { contact_id } = props;
+  const [messages, setMessages] = useState(null);
+  const router = useRouter();
   const token = !!localStorage.getItem("user_data")
     ? JSON.parse(localStorage.getItem("user_data"))
     : false;
 
   if (!token) {
-    navigate("/login", { replace: true });
+    router.push("/login");
   }
 
   useEffect(() => {
@@ -32,11 +36,7 @@ export default function Main() {
 
   return (
     <div className="container">
-      <LeftSide
-        userInfo={token}
-        messages={messages}
-        setMessages={setMessages}
-      />
+      <LeftSide userInfo={token} setMessages={setMessages} />
       <RightSide
         userInfo={token}
         messages={messages}

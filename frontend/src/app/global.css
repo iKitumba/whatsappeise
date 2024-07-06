@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply font-sans m-0 p-0 box-border;
+  }
+
+  body,
+  #root {
+    @apply w-full flex justify-center items-center min-h-screen;
+    background: linear-gradient(
+      #009688 0%,
+      #009688 130px,
+      #d9dbd5 130px,
+      #d9dbd5 100%
+    );
+  }
+
+  img {
+    @apply max-w-full;
+  }
+}
+
+@layer components {
+  .container {
+    @apply relative w-[1396px] max-w-full h-[calc(100vh-40px)] bg-white shadow-md flex;
+  }
+
+  .container .leftSide {
+    @apply border-r border-gray-400 relative flex-[30%] bg-white;
+  }
+
+  .container .rightSide {
+    @apply relative flex-[70%] bg-[#e5ddd5];
+  }
+
+  .header {
+    @apply relative w-full h-[60px] bg-gray-300 flex justify-between items-center px-4;
+  }
+
+  .imgText {
+    @apply relative flex justify-center items-center;
+  }
+
+  .imgText h4 {
+    @apply font-medium leading-tight ml-4;
+  }
+
+  .imgText h4 span {
+    @apply text-xs text-gray-600;
+  }
+
+  .errorMessage {
+    @apply text-crimson;
+  }
+
+  .chatlist {
+    @apply relative h-[calc(100%-110px)] overflow-y-auto;
+  }
+
+  .register-container {
+    @apply w-4/5 min-h-[84vh] flex;
+  }
+
+  .register-info {
+    @apply flex-1 hidden flex-col justify-evenly max-md:flex;
+  }
+
+  .register-info h1 {
+    @apply text-5xl font-bold text-teal-500;
+  }
+
+  .register-form {
+    @apply flex-1 bg-gray-200 flex flex-col items-center justify-center gap-5 shadow-md;
+  }
+
+  .upload-area {
+    @apply min-w-[8.125rem] h-[8.125rem] flex flex-col items-center justify-center border-2 border-dashed border-teal-500 cursor-pointer;
+  }
+
+  .upload-info {
+    @apply flex-1 flex flex-col items-center justify-evenly;
+  }
+
+  .upload-info p {
+    @apply text-xl font-semibold text-teal-500;
+  }
+
+  .upload-area input {
+    @apply w-0 h-0;
+  }
+
+  .input-wrapper {
+    @apply w-4/5 bg-gray-300 h-[3.125rem] flex items-center justify-between gap-6 rounded px-4;
+  }
+
+  .input-wrapper input {
+    @apply w-11/12 h-full border-none outline-none bg-transparent;
+  }
+
+  .input-wrapper input::placeholder {
+    @apply text-xl text-teal-500 font-semibold;
+  }
+
+  .already-have-account {
+    @apply w-4/5 flex justify-end;
+  }
+
+  .already-have-account p {
+    @apply text-sm font-semibold text-teal-500;
+  }
+
+  .register-button {
+    @apply w-4/5 h-[3.125rem] border-none rounded bg-teal-500 cursor-pointer text-white text-xl font-semibold;
+  }
+
+  .has-preview {
+    @apply border-none bg-cover;
+  }
+
+  .has-preview .upload-info {
+    display: none;
+  }
+
+  .login-container {
+    @apply w-4/5 min-h-[50vh] flex;
+  }
+
+  .login-info {
+    @apply hidden flex-1 flex-col items-start justify-evenly max-md:flex;
+  }
+
+  .login-info h1 {
+    @apply text-5xl font-bold text-teal-500;
+  }
+
+  .login-form {
+    @apply flex-1 bg-gray-200 flex flex-col items-center justify-center gap-5 shadow-md;
+  }
+
+  .login-input-wrapper {
+    @apply w-4/5 bg-gray-300 h-[3.125rem] flex items-center justify-between gap-6 rounded px-4;
+  }
+
+  .login-input-wrapper input {
+    @apply w-11/12 h-full border-none outline-none bg-transparent;
+  }
+
+  .login-input-wrapper input::placeholder {
+    @apply text-xl text-teal-500 font-semibold;
+  }
+
+  .dont-have-account {
+    @apply w-4/5 flex justify-end;
+  }
+
+  .dont-have-account p {
+    @apply text-sm font-semibold text-teal-500;
+  }
+
+  .login-button {
+    @apply w-4/5 h-[3.125rem] border-none rounded bg-teal-500 cursor-pointer text-white text-xl font-semibold;
+  }
+
+  .addperson-container {
+    @apply max-w-5xl my-8 mx-auto bg-gray-100 p-4 text-center;
+  }
+
+  .addperson-container figure {
+    @apply w-full mt-8 flex items-center justify-center;
+  }
+
+  .addperson-container ul {
+    @apply list-none grid grid-cols-3 gap-8 mt-12;
+  }
+
+  .addperson-container ul li {
+    @apply flex flex-col;
+  }
+
+  .addperson-container ul li img {
+    @apply max-w-full rounded-t max-h-[300px] object-cover;
+  }
+
+  .addperson-container ul li footer {
+    @apply flex-1 bg-white border border-gray-200 p-4 text-left rounded-b;
+  }
+
+  .addperson-container ul li footer strong {
+    @apply text-base text-gray-800;
+  }
+
+  .addperson-container ul li footer p {
+    @apply text-sm leading-5 text-gray-600 mt-1;
+  }
+
+  .addperson-container ul li button {
+    @apply mt-2 h-[3.125rem] shadow-sm border-none rounded bg-white cursor-pointer text-base font-bold text-teal-500;
+  }
+
+  @screen md {
+    .addperson-container ul {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @screen md {
+    .addperson-container ul {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
