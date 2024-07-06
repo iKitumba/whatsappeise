@@ -1,7 +1,8 @@
 "use client";
+import { AuthContext } from "@/contexts/AuthContext";
+import api from "@/services/api";
 import { Message } from "@/types/Message";
-import { getUserData } from "@/utils/getUserData";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { io } from "socket.io-client";
 import LeftSide from "../../../components/LeftSide";
@@ -13,18 +14,16 @@ type ContentProps = {
 };
 
 export function Content(props: ContentProps) {
+  const [loading, setLoading] = React.useState(true);
+  const router = useRouter();
   const { contact_id } = props;
-  const [messages, setMessages] = React.useState<Message[]>([] as Message[]);
-  const userData = getUserData();
-
-  if (!userData) {
-    redirect("/login");
-  }
+  const [messages, setMessages] = React.useState<Message[]>([]);
+  const { user } = React.useContext(AuthContext);
 
   React.useEffect(() => {
-    if (userData) {
+    if (user) {
       const socket = io(`http://localhost:${PORT}`, {
-        query: { user: userData.user._id },
+        query: { user: user.user._id },
       });
 
       socket.on("message", (savedMessage) => {
@@ -32,6 +31,33 @@ export function Content(props: ContentProps) {
       });
     }
   }, [messages]);
+
+  React.useEffect(() => {
+    async function loadInitialMessages() {
+      setLoading(true);
+      try {
+        const { data } = await api.get<Message[]>(`/message/${contact_id}`, {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        });
+        setMessages((prev) => [...data, ...prev]);
+      } catch (error) {
+        router.push("/");
+      } finally {
+        setLoading(false);
+      }
+    }
+    if (user) {
+      loadInitialMessages();
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <div className="container">
