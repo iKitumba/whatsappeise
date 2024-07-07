@@ -1,6 +1,7 @@
 "use client";
 import { User } from "@/contexts/AuthContext";
 import { getUserData } from "@/utils/getUserData";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -44,13 +45,13 @@ const AddFriend = () => {
     <div className="addperson-container">
       <figure>
         <Link href="/">
-          <img src="/logo.svg" alt="Whatsappeise" />
+          <Image src="/logo.svg" alt="Logotipo" />
         </Link>
       </figure>
       <ul>
         {users.map((user) => (
           <li key={user._id}>
-            <img src={user.avatar} alt={user.username} />
+            <Image src={user.avatar} alt={user.username} />
             <footer>
               <strong>{user.username}</strong>
               <p>{user.bio}</p>
