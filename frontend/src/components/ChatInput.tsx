@@ -18,6 +18,7 @@ const ChatInput = ({
   messages,
 }: ChatInputProps) => {
   const [text, setText] = useState("");
+  
   const handleSubmitMessage = async (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       const { data } = await api.post(

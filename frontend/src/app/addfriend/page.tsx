@@ -45,7 +45,7 @@ const AddFriend = () => {
     <div className="addperson-container">
       <figure>
         <Link href="/">
-          <Image src="/logo.svg" alt="Logotipo" />
+          <Image width={300} height={300} src="/logo.svg" alt="Logotipo" />
         </Link>
       </figure>
       <ul>
